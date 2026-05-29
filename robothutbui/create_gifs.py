@@ -105,7 +105,7 @@ def make_gif_for_algorithm(algo, filename):
     print(f"  -> Saved GIF successfully at: gifs/{filename} ({len(frames)} frames)")
 
 def main():
-    algos = ["BFS", "DFS", "UCS", "A*", "Greedy"]
+    algos = ["BFS", "DFS", "UCS", "A*", "Greedy", "IDA*"]
     for algo in algos:
         safe_name = algo.lower().replace("*", "_star")
         filename = f"mayhutbui_{safe_name}.gif"
