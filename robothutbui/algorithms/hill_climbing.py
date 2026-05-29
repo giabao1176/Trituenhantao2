@@ -54,7 +54,7 @@ def solve_hill_climbing(M, N, start_pos, initial_dirty, obstacles, style):
 
         if not valid_neighbors:
             logs.append(step_log + "\n  -> Bị kẹt! Không có ô lân cận hợp lệ.")
-            return {"found": False, "path": None, "directions": [], "exploration_log": logs, "nodes_gen": nodes_generated, "nodes_exp": nodes_expanded}
+            return {"found": False, "path": path, "directions": dirs, "exploration_log": logs, "nodes_gen": nodes_generated, "nodes_exp": nodes_expanded}
 
         next_step = None
 
@@ -86,7 +86,7 @@ def solve_hill_climbing(M, N, start_pos, initial_dirty, obstacles, style):
         if next_step is None:
             # Stuck in local optimum / plateau
             logs.append(step_log + "\n  -> BỊ KẸT TẠI CỰC TRỊ ĐỊA PHƯƠNG! Không có ô lân cận nào tốt hơn.")
-            return {"found": False, "path": None, "directions": [], "exploration_log": logs, "nodes_gen": nodes_generated, "nodes_exp": nodes_expanded}
+            return {"found": False, "path": path, "directions": dirs, "exploration_log": logs, "nodes_gen": nodes_generated, "nodes_exp": nodes_expanded}
 
         # Transition to next state
         current_state = (next_step["pos"], next_step["dirty"])

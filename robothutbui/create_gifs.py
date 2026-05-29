@@ -62,7 +62,7 @@ def make_gif_for_algorithm(algo, filename):
     print(f"Solving and rendering for algorithm: {algo}...")
     result = solve_vacuum(M, N, start_pos, dirty_cells, obstacles, algo, style=2)
     
-    if not result["found"]:
+    if not result["found"] and not result.get("path"):
         print(f"  -> Path not found for {algo}!")
         return
         
@@ -105,9 +105,9 @@ def make_gif_for_algorithm(algo, filename):
     print(f"  -> Saved GIF successfully at: gifs/{filename} ({len(frames)} frames)")
 
 def main():
-    algos = ["BFS", "DFS", "UCS", "A*", "Greedy", "IDA*"]
+    algos = ["BFS", "DFS", "UCS", "A*", "Greedy", "IDA*", "Hill Climbing"]
     for algo in algos:
-        safe_name = algo.lower().replace("*", "_star")
+        safe_name = algo.lower().replace("*", "_star").replace(" ", "_")
         filename = f"mayhutbui_{safe_name}.gif"
         make_gif_for_algorithm(algo, filename)
     print("\nDone! All GIF files have been created successfully in the 'gifs/' folder.")
