@@ -11,7 +11,7 @@ from algorithms import solve_vacuum, solve_vacuum_stepwise
 class RobotVacuumGUI:
     def __init__(self, root):
         self.root = root
-        self.root.title("Robot Hút Bụi - BFS/DFS/IDS/UCS/Greedy/A*/IDA*/Hill Climbing")
+        self.root.title("Robot Hút Bụi - BFS/DFS/IDS/UCS/Greedy/A*/IDA*/Hill Climbing/Random Restart Hill")
         self.root.geometry("1100x700")
 
         self.M = 8
@@ -59,7 +59,7 @@ class RobotVacuumGUI:
         
         tk.Label(ctrl_frame, text="Thuật toán:").grid(row=0, column=0, sticky="w", padx=2)
         self.algo_var = tk.StringVar(value="BFS")
-        self.algo_combo = ttk.Combobox(ctrl_frame, textvariable=self.algo_var, values=["BFS", "DFS", "IDS", "UCS", "Greedy", "A*", "IDA*", "Hill Climbing"], state="readonly", width=11)
+        self.algo_combo = ttk.Combobox(ctrl_frame, textvariable=self.algo_var, values=["BFS", "DFS", "IDS", "UCS", "Greedy", "A*", "IDA*", "Hill Climbing", "Random Restart Hill"], state="readonly", width=18)
         self.algo_combo.grid(row=0, column=1, sticky="w", padx=2)
         self.algo_combo.bind("<<ComboboxSelected>>", self.on_algo_changed)
         
@@ -94,7 +94,7 @@ class RobotVacuumGUI:
             "• Bụi(Ngôi sao): Các điểm bẩn cần làm sạch\n"
             "• Style 1: Kiểm tra Goal khi lấy trạng thái NODE con ra khỏi Frontier\n"
             "• Style 2: Kiểm tra Goal ngay khi sinh trạng thái NODE con (thường nhanh hơn)\n"
-            "• Đơn giản/Dốc nhất/Ngẫu nhiên: Các kiểu leo đồi (Hill Climbing)"
+            "• Đơn giản/Dốc nhất/Ngẫu nhiên: Các kiểu leo đồi (Hill Climbing & Random Restart Hill)"
         )
         tk.Label(legend_frame, text=legend_text, justify=tk.LEFT, anchor="w", font=("Segoe UI", 9), fg="#333333").pack(fill=tk.X, padx=5, pady=5)
         
@@ -145,7 +145,7 @@ class RobotVacuumGUI:
 
     def on_algo_changed(self, event=None):
         algo = self.algo_var.get()
-        if algo == "Hill Climbing":
+        if algo in ["Hill Climbing", "Random Restart Hill"]:
             self.style_combo.config(values=["Đơn giản", "Dốc nhất", "Ngẫu nhiên"])
             self.style_var.set("Đơn giản")
         else:
@@ -339,7 +339,7 @@ class RobotVacuumGUI:
             
         algo = self.algo_var.get()
         style_str = self.style_var.get()
-        if algo == "Hill Climbing":
+        if algo in ["Hill Climbing", "Random Restart Hill"]:
             if style_str == "Đơn giản":
                 style = 1
             elif style_str == "Dốc nhất":

@@ -6,6 +6,7 @@ from .astar import solve_astar, solve_astar_stepwise
 from .greedy import solve_greedy, solve_greedy_stepwise
 from .idastar import solve_idastar, solve_idastar_stepwise
 from .hill_climbing import solve_hill_climbing, solve_hill_climbing_stepwise
+from .random_restart_hill import solve_random_restart_hill, solve_random_restart_hill_stepwise
 
 def solve_vacuum(M, N, start_pos, initial_dirty, obstacles, algo, style):
     if algo == "BFS":
@@ -24,6 +25,8 @@ def solve_vacuum(M, N, start_pos, initial_dirty, obstacles, algo, style):
         return solve_idastar(M, N, start_pos, initial_dirty, obstacles, style)
     elif algo == "Hill Climbing":
         return solve_hill_climbing(M, N, start_pos, initial_dirty, obstacles, style)
+    elif algo == "Random Restart Hill":
+        return solve_random_restart_hill(M, N, start_pos, initial_dirty, obstacles, style)
     else:
         raise ValueError(f"Unknown algorithm: {algo}")
 
@@ -44,5 +47,7 @@ def solve_vacuum_stepwise(M, N, start_pos, initial_dirty, obstacles, algo, style
         return solve_idastar_stepwise(M, N, start_pos, initial_dirty, obstacles, style)
     elif algo == "Hill Climbing":
         return solve_hill_climbing_stepwise(M, N, start_pos, initial_dirty, obstacles, style)
+    elif algo == "Random Restart Hill":
+        return solve_random_restart_hill_stepwise(M, N, start_pos, initial_dirty, obstacles, style)
     else:
         raise ValueError(f"Unknown algorithm: {algo}")
