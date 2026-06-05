@@ -7,6 +7,8 @@ from .greedy import solve_greedy, solve_greedy_stepwise
 from .idastar import solve_idastar, solve_idastar_stepwise
 from .hill_climbing import solve_hill_climbing, solve_hill_climbing_stepwise
 from .random_restart_hill import solve_random_restart_hill, solve_random_restart_hill_stepwise
+from .local_beam import solve_local_beam, solve_local_beam_stepwise
+from .simulated_annealing import solve_simulated_annealing, solve_simulated_annealing_stepwise
 
 def solve_vacuum(M, N, start_pos, initial_dirty, obstacles, algo, style):
     if algo == "BFS":
@@ -27,6 +29,10 @@ def solve_vacuum(M, N, start_pos, initial_dirty, obstacles, algo, style):
         return solve_hill_climbing(M, N, start_pos, initial_dirty, obstacles, style)
     elif algo == "Random Restart Hill":
         return solve_random_restart_hill(M, N, start_pos, initial_dirty, obstacles, style)
+    elif algo == "Local Beam Search":
+        return solve_local_beam(M, N, start_pos, initial_dirty, obstacles, style)
+    elif algo == "Simulated Annealing":
+        return solve_simulated_annealing(M, N, start_pos, initial_dirty, obstacles, style)
     else:
         raise ValueError(f"Unknown algorithm: {algo}")
 
@@ -49,5 +55,10 @@ def solve_vacuum_stepwise(M, N, start_pos, initial_dirty, obstacles, algo, style
         return solve_hill_climbing_stepwise(M, N, start_pos, initial_dirty, obstacles, style)
     elif algo == "Random Restart Hill":
         return solve_random_restart_hill_stepwise(M, N, start_pos, initial_dirty, obstacles, style)
+    elif algo == "Local Beam Search":
+        return solve_local_beam_stepwise(M, N, start_pos, initial_dirty, obstacles, style)
+    elif algo == "Simulated Annealing":
+        return solve_simulated_annealing_stepwise(M, N, start_pos, initial_dirty, obstacles, style)
     else:
         raise ValueError(f"Unknown algorithm: {algo}")
+

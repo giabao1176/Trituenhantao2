@@ -11,7 +11,7 @@ from algorithms import solve_vacuum, solve_vacuum_stepwise
 class RobotVacuumGUI:
     def __init__(self, root):
         self.root = root
-        self.root.title("Robot Hút Bụi - BFS/DFS/IDS/UCS/Greedy/A*/IDA*/Hill Climbing/Random Restart Hill")
+        self.root.title("Robot Hút Bụi - BFS/DFS/IDS/UCS/Greedy/A*/IDA*/Hill Climbing/Random Restart Hill/Local Beam/Simulated Annealing")
         self.root.geometry("1100x700")
 
         self.M = 8
@@ -59,7 +59,7 @@ class RobotVacuumGUI:
         
         tk.Label(ctrl_frame, text="Thuật toán:").grid(row=0, column=0, sticky="w", padx=2)
         self.algo_var = tk.StringVar(value="BFS")
-        self.algo_combo = ttk.Combobox(ctrl_frame, textvariable=self.algo_var, values=["BFS", "DFS", "IDS", "UCS", "Greedy", "A*", "IDA*", "Hill Climbing", "Random Restart Hill"], state="readonly", width=18)
+        self.algo_combo = ttk.Combobox(ctrl_frame, textvariable=self.algo_var, values=["BFS", "DFS", "IDS", "UCS", "Greedy", "A*", "IDA*", "Hill Climbing", "Random Restart Hill", "Local Beam Search", "Simulated Annealing"], state="readonly", width=18)
         self.algo_combo.grid(row=0, column=1, sticky="w", padx=2)
         self.algo_combo.bind("<<ComboboxSelected>>", self.on_algo_changed)
         
@@ -148,6 +148,12 @@ class RobotVacuumGUI:
         if algo in ["Hill Climbing", "Random Restart Hill"]:
             self.style_combo.config(values=["Đơn giản", "Dốc nhất", "Ngẫu nhiên"])
             self.style_var.set("Đơn giản")
+        elif algo == "Local Beam Search":
+            self.style_combo.config(values=["k = 2", "k = 3", "k = 4"])
+            self.style_var.set("k = 3")
+        elif algo == "Simulated Annealing":
+            self.style_combo.config(values=["Tuyến tính", "Mũ"])
+            self.style_var.set("Mũ")
         else:
             self.style_combo.config(values=["Style 1", "Style 2"])
             if self.style_var.get() not in ["Style 1", "Style 2"]:
@@ -346,6 +352,18 @@ class RobotVacuumGUI:
                 style = 2
             else:
                 style = 3
+        elif algo == "Local Beam Search":
+            if style_str == "k = 2":
+                style = 2
+            elif style_str == "k = 4":
+                style = 4
+            else:
+                style = 3
+        elif algo == "Simulated Annealing":
+            if style_str == "Tuyến tính":
+                style = 1
+            else:
+                style = 2
         else:
             style = 1 if "Style 1" in style_str else 2
         return r_start, c_start, initial_dirty, obstacles, algo, style, style_str
