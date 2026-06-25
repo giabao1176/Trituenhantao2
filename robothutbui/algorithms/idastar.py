@@ -1,7 +1,6 @@
 def heuristic(pos, dirty):
     if not dirty:
         return 0
-    # Manhattan distance to the nearest dirty cell
     min_dist = min(abs(pos[0] - d[0]) + abs(pos[1] - d[1]) for d in dirty)
     return min_dist + len(dirty) - 1
 
@@ -21,13 +20,11 @@ def solve_idastar(M, N, start_pos, initial_dirty, obstacles, style):
 
     while True:
         logs.append(f"--- BẮT ĐẦU IDA* VỚI F-LIMIT = {limit} ---")
-        # stack stores: (state, g, path_list, directions_list)
         stack = [(initial_state, 0, [initial_state], [])]
         next_limit = float('inf')
-        
-        # Keep track of states visited within the current iteration to prune suboptimal paths
-        visited = {initial_state: 0} # state -> min_g
-        
+
+        visited = {initial_state: 0}
+
         while stack:
             state, g, path_list, dirs = stack.pop()
             nodes_expanded += 1
@@ -36,7 +33,7 @@ def solve_idastar(M, N, start_pos, initial_dirty, obstacles, style):
 
             h = heuristic((r, c), dirty)
             f = g + h
-            
+
             step_log = f"Bước {nodes_expanded} (limit={limit}): Xét ({r},{c}) [f={f}, g={g}, h={h}], còn {len(dirty)} bụi"
 
             if style == 1 and not dirty:
@@ -53,25 +50,24 @@ def solve_idastar(M, N, start_pos, initial_dirty, obstacles, style):
                 continue
 
             children = []
-            # We push onto stack in reverse directions so they are popped in U, D, L, R order
             for dr, dc in reversed(directions):
                 nr, nc = r + dr, c + dc
                 if 0 <= nr < M and 0 <= nc < N and (nr, nc) not in obstacles:
                     next_state = ((nr, nc), dirty - {(nr, nc)})
                     next_g = g + 1
-                    
+
                     if next_state in path_list:
                         continue
-                        
+
                     if next_state not in visited or next_g < visited[next_state]:
                         visited[next_state] = next_g
                         nodes_generated += 1
                         children.append(dir_names[(dr, dc)])
-                        
+
                         if style == 2 and not next_state[1]:
                             logs.append(step_log + f"\n  -> Sinh con: {dir_names[(dr, dc)]} | ĐẠT ĐÍCH!")
                             return {"found": True, "path": [s[0] for s in path_list] + [(nr, nc)], "directions": dirs + [dir_names[(dr, dc)]], "exploration_log": logs, "nodes_gen": nodes_generated, "nodes_exp": nodes_expanded}
-                            
+
                         stack.append((next_state, next_g, path_list + [next_state], dirs + [dir_names[(dr, dc)]]))
 
             if children:
@@ -117,7 +113,6 @@ def solve_idastar_stepwise(M, N, start_pos, initial_dirty, obstacles, style):
             h = heuristic((r, c), dirty)
             f = g + h
 
-            # Show active stack
             sorted_stack = list(reversed(stack))
             stack_show = ", ".join(f"({s[0][0][0]},{s[0][0][1]})[f={s[1]+heuristic(s[0][0], s[0][1])},g={s[1]}]" for s in sorted_stack[:4])
             if len(stack) > 4:

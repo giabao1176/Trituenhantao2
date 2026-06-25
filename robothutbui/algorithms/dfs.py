@@ -29,7 +29,7 @@ def solve_dfs(M, N, start_pos, initial_dirty, obstacles, style):
         dirty = state[1]
 
         step_log = f"Bước {nodes_expanded}: Xét node ({r},{c}), còn {len(dirty)} ô bụi"
-        
+
         if style == 1 and not dirty:
             logs.append(step_log)
             path, dirs = get_path(state)
@@ -54,7 +54,7 @@ def solve_dfs(M, N, start_pos, initial_dirty, obstacles, style):
                         logs.append(step_log + f"\n  -> Sinh con: {', '.join(children)} | ĐẠT ĐÍCH!")
                         path, dirs = get_path(next_state)
                         return {"found": True, "path": path, "directions": dirs, "exploration_log": logs, "nodes_gen": nodes_generated, "nodes_exp": nodes_expanded}
-                    
+
                     frontier.append(next_state)
 
         logs.append(step_log + (f"\n  -> Sinh con: {', '.join(children)}" if children else "\n  -> Không sinh thêm con."))
@@ -95,7 +95,7 @@ def solve_dfs_stepwise(M, N, start_pos, initial_dirty, obstacles, style):
         frontier_show = ", ".join(f"({s[0][0]},{s[0][1]})" for s in frontier[:5])
         if len(frontier) > 5:
             frontier_show += f" ... (+{len(frontier)-5} node)"
-            
+
         log_text = f"Bước {nodes_expanded}: Xét node ({r},{c}), còn {len(dirty)} ô bụi\n  -> Frontier: [{frontier_show}]"
 
         if style == 1 and not dirty:

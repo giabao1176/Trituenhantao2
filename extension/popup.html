@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Envit5 Translator</h2>
+        
+        <div class="api-key-section">
+            <input type="password" id="apiKey" placeholder="Hugging Face API Key (hf_...)">
+            <button id="saveApiKey" class="btn btn-secondary">Lưu Key</button>
+        </div>
+
+        <div class="translate-section">
+            <textarea id="inputText" placeholder="Nhập văn bản cần dịch..."></textarea>
+            
+            <div class="controls">
+                <select id="direction">
+                    <option value="en: ">Anh -> Việt</option>
+                    <option value="vi: ">Việt -> Anh</option>
+                </select>
+                <button id="translateBtn" class="btn btn-primary">Dịch</button>
+            </div>
+
+            <div id="loading" class="hidden">Đang dịch...</div>
+            
+            <div id="resultBox" class="hidden">
+                <p id="phonetic"></p>
+                <p id="outputText"></p>
+                <div class="result-actions">
+                    <button id="speakInputBtn" class="icon-btn" title="Đọc văn bản gốc">🔊 Gốc</button>
+                    <button id="speakOutputBtn" class="icon-btn" title="Đọc bản dịch">🔊 Dịch</button>
+                </div>
+            </div>
+        </div>
+<hr>
+        <div class="history-section">
+            <button id="exportHistoryBtn" class="btn btn-success">Xuất Lịch Sử (Markdown)</button>
+            <button id="clearHistoryBtn" class="btn btn-danger">Xóa Lịch Sử</button>
+        </div>
+    </div>
+    <script src="popup.js"></script>
+</body>
+</html>

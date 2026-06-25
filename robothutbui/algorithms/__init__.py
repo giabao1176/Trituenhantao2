@@ -9,8 +9,15 @@ from .hill_climbing import solve_hill_climbing, solve_hill_climbing_stepwise
 from .random_restart_hill import solve_random_restart_hill, solve_random_restart_hill_stepwise
 from .local_beam import solve_local_beam, solve_local_beam_stepwise
 from .simulated_annealing import solve_simulated_annealing, solve_simulated_annealing_stepwise
+from .sensorless import solve_vacuum_sensorless, solve_vacuum_sensorless_stepwise
+from .and_or import solve_and_or
+from .partially_observable import solve_partially_observable
 
-def solve_vacuum(M, N, start_pos, initial_dirty, obstacles, algo, style):
+
+def solve_vacuum(M, N, start_pos, initial_dirty, obstacles, algo, style, sensorless=False):
+    if sensorless:
+        return solve_vacuum_sensorless(M, N, initial_dirty, obstacles, algo, style)
+
     if algo == "BFS":
         return solve_bfs(M, N, start_pos, initial_dirty, obstacles, style)
     elif algo == "DFS":
@@ -36,7 +43,10 @@ def solve_vacuum(M, N, start_pos, initial_dirty, obstacles, algo, style):
     else:
         raise ValueError(f"Unknown algorithm: {algo}")
 
-def solve_vacuum_stepwise(M, N, start_pos, initial_dirty, obstacles, algo, style):
+def solve_vacuum_stepwise(M, N, start_pos, initial_dirty, obstacles, algo, style, sensorless=False):
+    if sensorless:
+        return solve_vacuum_sensorless_stepwise(M, N, initial_dirty, obstacles, algo, style)
+
     if algo == "BFS":
         return solve_bfs_stepwise(M, N, start_pos, initial_dirty, obstacles, style)
     elif algo == "DFS":
@@ -61,4 +71,5 @@ def solve_vacuum_stepwise(M, N, start_pos, initial_dirty, obstacles, algo, style
         return solve_simulated_annealing_stepwise(M, N, start_pos, initial_dirty, obstacles, style)
     else:
         raise ValueError(f"Unknown algorithm: {algo}")
+
 

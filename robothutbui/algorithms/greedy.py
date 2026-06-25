@@ -4,12 +4,11 @@ from .astar import heuristic
 def solve_greedy(M, N, start_pos, initial_dirty, obstacles, style):
     frontier = []
     initial_state = (start_pos, frozenset(initial_dirty))
-    
+
     tie_breaker = 0
     h_init = heuristic(start_pos, initial_dirty)
-    # Priority Queue stores: (h, tie_breaker, state)
     heapq.heappush(frontier, (h_init, tie_breaker, initial_state))
-    
+
     visited = {initial_state}
     parent = {initial_state: (None, None)}
 
@@ -36,11 +35,11 @@ def solve_greedy(M, N, start_pos, initial_dirty, obstacles, style):
 
     while frontier:
         h, _, state = heapq.heappop(frontier)
-        
+
         if state in expanded:
             continue
         expanded.add(state)
-        
+
         nodes_expanded += 1
         r, c = state[0]
         dirty = state[1]
@@ -85,11 +84,11 @@ def solve_greedy(M, N, start_pos, initial_dirty, obstacles, style):
 def solve_greedy_stepwise(M, N, start_pos, initial_dirty, obstacles, style):
     frontier = []
     initial_state = (start_pos, frozenset(initial_dirty))
-    
+
     tie_breaker = 0
     h_init = heuristic(start_pos, initial_dirty)
     heapq.heappush(frontier, (h_init, tie_breaker, initial_state))
-    
+
     visited = {initial_state}
     parent = {initial_state: (None, None)}
 
@@ -116,11 +115,11 @@ def solve_greedy_stepwise(M, N, start_pos, initial_dirty, obstacles, style):
 
     while frontier:
         h, _, state = heapq.heappop(frontier)
-        
+
         if state in expanded:
             continue
         expanded.add(state)
-        
+
         nodes_expanded += 1
         r, c = state[0]
         dirty = state[1]

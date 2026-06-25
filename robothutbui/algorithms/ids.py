@@ -23,7 +23,7 @@ def solve_ids(M, N, start_pos, initial_dirty, obstacles, style):
     for depth_limit in range(1000):
         logs.append(f"--- BẮT ĐẦU DLS VỚI ĐỘ SÂU LIMIT = {depth_limit} ---")
         frontier = [(initial_state, 0)]
-        visited = {initial_state: 0} # state -> min_depth
+        visited = {initial_state: 0}
         parent = {initial_state: (None, None)}
 
         while frontier:
@@ -109,7 +109,7 @@ def solve_ids_stepwise(M, N, start_pos, initial_dirty, obstacles, style):
             frontier_show = ", ".join(f"({s[0][0]},{s[0][1]})[d={s[1]}]" for s in frontier[:5])
             if len(frontier) > 5:
                 frontier_show += f" ... (+{len(frontier)-5} node)"
-                
+
             log_text = f"Bước {nodes_expanded} (depth={depth}): Xét node ({r},{c}), còn {len(dirty)} ô bụi\n  -> Frontier: [{frontier_show}]"
 
             if style == 1 and not dirty:

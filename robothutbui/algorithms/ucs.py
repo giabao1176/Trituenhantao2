@@ -3,10 +3,10 @@ import heapq
 def solve_ucs(M, N, start_pos, initial_dirty, obstacles, style):
     frontier = []
     initial_state = (start_pos, frozenset(initial_dirty))
-    
+
     tie_breaker = 0
     heapq.heappush(frontier, (0, tie_breaker, initial_state))
-    
+
     best_cost = {initial_state: 0}
     parent = {initial_state: (None, None)}
 
@@ -33,11 +33,11 @@ def solve_ucs(M, N, start_pos, initial_dirty, obstacles, style):
 
     while frontier:
         cost, _, state = heapq.heappop(frontier)
-        
+
         if state in expanded:
             continue
         expanded.add(state)
-        
+
         nodes_expanded += 1
         r, c = state[0]
         dirty = state[1]
@@ -82,10 +82,10 @@ def solve_ucs(M, N, start_pos, initial_dirty, obstacles, style):
 def solve_ucs_stepwise(M, N, start_pos, initial_dirty, obstacles, style):
     frontier = []
     initial_state = (start_pos, frozenset(initial_dirty))
-    
+
     tie_breaker = 0
     heapq.heappush(frontier, (0, tie_breaker, initial_state))
-    
+
     best_cost = {initial_state: 0}
     parent = {initial_state: (None, None)}
 
@@ -112,11 +112,11 @@ def solve_ucs_stepwise(M, N, start_pos, initial_dirty, obstacles, style):
 
     while frontier:
         cost, _, state = heapq.heappop(frontier)
-        
+
         if state in expanded:
             continue
         expanded.add(state)
-        
+
         nodes_expanded += 1
         r, c = state[0]
         dirty = state[1]

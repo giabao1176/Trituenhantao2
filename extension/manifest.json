@@ -1,0 +1,30 @@
+{
+  "manifest_version": 3,
+  "name": "Envit5 Translator",
+  "version": "1.0",
+  "description": "Dịch thuật với VietAI/envit5-translation, hỗ trợ phát âm và phiên âm.",
+  "permissions": [
+    "contextMenus",
+    "storage",
+    "activeTab",
+    "scripting",
+    "downloads"
+  ],
+  "host_permissions": [
+    "https://api-inference.huggingface.co/*",
+    "https://api.dictionaryapi.dev/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "css": ["content.css"],
+      "js": ["content.js"]
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  }
+}
